@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 
-
-
 import './App.css';
+
+const purchaseDesks = 'desks';
+const purchaseCart = 'cart';
 
 function App() {
 
   const [cart, setCart] = useState([]);
+
+  const [purchase, setPurchase] = useState('desks')
 
   const [desks] = useState([
     {
@@ -43,13 +46,19 @@ function App() {
 
 
   const addToCart = (desk) => {
-    setCart([...cart, desk])
+    setCart([...cart, { ...desk }]);
   }
 
+  const removeFromCart = (deskToBeRemoved) => {
+    setCart(cart.filter((desk) => desk !== deskToBeRemoved));
+  }
 
+  const goToCart = (purchaseSection) => {
+    setPurchase(purchaseSection);
+  }
 
-  return (
-    <div className='App'>
+  const renderDesks = () => (
+    <React.Fragment>
       <h1>Products</h1>
       <div className="items">
         {desks.map((desk, id) => (
@@ -58,10 +67,40 @@ function App() {
             <img src={desk.image} alt={desk.name} />
             <h4>{desk.price}</h4>
             <p>{desk.credit}</p>
-            <button>Add to Cart</button>
+            <button onClick={() => addToCart(desk)}>Add to Cart</button>
           </div>
         ))}
       </div>
+    </React.Fragment>
+  );
+
+  const renderCart = () => (
+    <React.Fragment>
+      <h1>Shopping Cart</h1>
+      <div className="items">
+        {cart.map((desk, id) => (
+          <div className="item-description" key={id}>
+            <h3>{desk.name}</h3>
+            <img src={desk.image} alt={desk.name} />
+            <h4>{desk.price}</h4>
+            <p>{desk.credit}</p>
+            <button onClick={() => removeFromCart(desk)}>Remove Item</button>
+          </div>
+        ))}
+      </div>
+    </React.Fragment>
+  );
+
+
+  return (
+    <div className='App'>
+      <header>
+        <button onClick={() => goToCart(purchaseCart)}>View Cart {cart.length}</button>
+        <button onClick={() => goToCart(purchaseDesks)}>View Desks </button>
+      </header>
+      {purchase === purchaseDesks && renderDesks()}
+      {purchase === purchaseCart && renderCart()}
+
       <footer>
         <p></p>
       </footer>

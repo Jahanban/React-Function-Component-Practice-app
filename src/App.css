@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: peachpuff;
 }
 
 .App-logo {
@@ -37,6 +38,11 @@
   }
 }
 
+header {
+  padding: 20px;
+  margin-left: 30%;
+}
+
 
 .items {
   width: 40%;
@@ -50,4 +56,11 @@
 .items img {
   width: 200px;
   height: 200px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
 }

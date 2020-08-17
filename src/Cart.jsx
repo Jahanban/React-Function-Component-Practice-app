@@ -4,6 +4,7 @@ export default function Cart({ cart, removeFromCart }) {
     return (
         <React.Fragment>
             <h1>Shopping Cart</h1>
+            <button>Clear Cart</button>
             <div className="items">
                 {cart.map((desk, id) => (
                     <div className="item-description" key={id}>
